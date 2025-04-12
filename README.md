@@ -55,7 +55,7 @@ Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti re
 | LED Status        | GPIO2    |
 
 
-![Gambar CokTel](Koneksi/wiring.png)
+![Gambar CokTel](Koneksi/wiring_esp32.png)
 
 ---
 
