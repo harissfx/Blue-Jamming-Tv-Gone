@@ -1,6 +1,6 @@
 # Alat Jamming Wireless & Remote TV IR
 
-![Gambar CokTel](src/CokTel.png
+![Gambar CokTel](src/CokTel.png)
 
 ## Sekilas Proyek
 
@@ -55,6 +55,7 @@ Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti re
 | LED Status        | GPIO2    |
 
 
+![Gambar CokTel](Koneksi/wiring.png)
 
 ---
 
