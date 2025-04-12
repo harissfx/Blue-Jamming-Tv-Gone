@@ -9,7 +9,7 @@
           "offset": 4096
         },
         {
-          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/boot_app0.bin",
+          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/blob/main/Firmware%20Binary/boot_app0.bin",
           "offset": 57344
         },
         {
