@@ -5,19 +5,19 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/main/Binary/bootloader_qio_80m.bin",
+          "path": "https://github.com/harissfx/Blue-Jamming-Tv-Gone/raw/refs/heads/main/Binary/bootloader_qio_80m.bin",
           "offset": 4096
         },
         {
-          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/blob/main/Firmware%20Binary/boot_app0.bin",
+          "path": "https://github.com/harissfx/Blue-Jamming-Tv-Gone/raw/refs/heads/main/Binary/boot_app0.bin",
           "offset": 57344
         },
         {
-          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/blob/main/Firmware%20Binary/jamming_tv_gone.ino.partitions.bin",
+          "path": "https://github.com/harissfx/Blue-Jamming-Tv-Gone/raw/refs/heads/main/Binary/jamming_tv_gone.ino.partitions.bin",
           "offset": 32768
         },
         {
-          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/blob/main/Binary/jamming_tv_gone.ino.bin",
+          "path": "https://github.com/harissfx/Blue-Jamming-Tv-Gone/raw/refs/heads/main/Binary/jamming_tv_gone.ino.bin",
           "offset": 65536
         }
       ]
