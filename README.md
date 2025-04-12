@@ -1,6 +1,6 @@
 # Alat Jamming Wireless & Remote TV IR
 
-![Device Banner]([https://via.placeholder.com/800x200/0d1117/ffffff?text=WiFi+Jamming+%26+IR+Control+Device])
+![Gambar CokTel](src/CokTel.png
 
 ## Sekilas Proyek
 
