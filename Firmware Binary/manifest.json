@@ -5,7 +5,7 @@
       "chipFamily": "ESP32",
       "parts": [
         {
-          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/bootloader.bin",
+          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/blob/main/Firmware%20Binary/bootloader_qio_80m.bin",
           "offset": 4096
         },
         {
