@@ -188,7 +188,7 @@ Alat ini **cuma buat belajar dan eksperimen aja**. Di beberapa negara, **pakai a
 
 Kalau kamu suka sama proyek ini dan pengen bantu biar makin berkembang, kamu bisa traktir kopi atau dukung lewat link berikut:
 
-- ?? Saweria: [https://saweria.co/namakamu](https://saweria.co/HarisSfx)
+- ?? Saweria: [https://saweria.co/HarisSfx]
 
 Bantuan sekecil apapun bakal sangat berarti buat lanjutin pengembangan alat-alat seru kayak gini. Makasih banget!
 
