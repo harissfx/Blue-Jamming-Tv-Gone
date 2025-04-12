@@ -51,8 +51,7 @@ Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti re
 |------------------|-----------|
 | LED IR (ky 005) | GPIO25 |
 | Tombol Toggle     | GPIO33   |
-| Tombol Mode (BOOT)| GPIO0    |
-| LED Status        | GPIO2    |
+
 
 
 ![Gambar CokTel](Koneksi/wiring_esp32.png)
