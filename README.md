@@ -187,9 +187,7 @@ Alat ini **cuma buat belajar dan eksperimen aja**. Di beberapa negara, **pakai a
 
 Kalau kamu suka sama proyek ini dan pengen bantu biar makin berkembang, kamu bisa traktir kopi atau dukung lewat link berikut:
 
-- ?? Saweria: [https://saweria.co/namakamu](https://saweria.co/namakamu)
-- ? Trakteer: [https://trakteer.id/namakamu](https://trakteer.id/namakamu)
-- ?? PayPal: [https://paypal.me/namakamu](https://paypal.me/namakamu)
+- ?? Saweria: [https://saweria.co/namakamu](https://saweria.co/HarisSfx)
 
 Bantuan sekecil apapun bakal sangat berarti buat lanjutin pengembangan alat-alat seru kayak gini. Makasih banget!
 
@@ -199,7 +197,7 @@ Bantuan sekecil apapun bakal sangat berarti buat lanjutin pengembangan alat-alat
 
 **Dibuat oleh:** Haris SFX  
 **Lisensi:** MIT License  
-**Kontak:** harisfx@example.com
+
 
 > *Proyek ini dibuat buat keperluan edukasi. Penulis nggak bertanggung jawab kalau ada yang nyalahgunain alat ini.*
 
