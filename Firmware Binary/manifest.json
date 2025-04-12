@@ -1,0 +1,26 @@
+{
+  "name": "ESP32 Bluetooth Jammer",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/bootloader.bin",
+          "offset": 4096
+        },
+        {
+          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/boot_app0.bin",
+          "offset": 57344
+        },
+        {
+          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/partitions.bin",
+          "offset": 32768
+        },
+        {
+          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/ota.bin",
+          "offset": 65536
+        }
+      ]
+    }
+  ]
+}
