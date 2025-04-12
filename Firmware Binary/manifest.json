@@ -17,7 +17,7 @@
           "offset": 32768
         },
         {
-          "path": "https://raw.githubusercontent.com/namauser/repo-esp32/main/firmware/ota.bin",
+          "path": "https://raw.githubusercontent.com/harissfx/Blue-Jamming-Tv-Gone/blob/main/Firmware%20Binary/jamming_tv_gone.ino.bin",
           "offset": 65536
         }
       ]
