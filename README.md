@@ -54,7 +54,7 @@ Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti re
 
 
 
-![Gambar CokTel](Koneksi/wiring_esp32.png)
+![Gambar CokTel](Koneksi/wiring_esp32.jpg)
 
 ---
 
