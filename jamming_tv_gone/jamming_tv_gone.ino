@@ -31,7 +31,7 @@
  * - ESP32 development board
  * - 2x modul NRF24L01+
  * - 2x kapasitor  10µF atau 100µF
- * - IR LED dengan transistor driver
+ * - IR LED
  * - Tombol untuk GPIO0 dan GPIO33
  * - Power supply yang stabil (rekomendasi: baterai dengan regulator)
  * 
@@ -78,6 +78,8 @@ bool jammingActive = false;
 unsigned long previousMillis = 0;
 const long blinkInterval = 500;
 bool ledState = LOW;
+unsigned long lastToggleMillis = 0;
+const long toggleDebounceTime = 50;
 
 // === IR CONFIGURATION ===
 IRsend irsend(kIrLed);
@@ -157,36 +159,33 @@ void loop() {
   static bool lastToggleState = HIGH;
   bool toggleState = digitalRead(TOGGLE_PIN);
 
-  if (toggleState == LOW && lastToggleState == HIGH) {
-    delay(50);
-
-    if (currentMode == JAMMING) {
-      jammingActive = !jammingActive;
-
-      if (jammingActive) {
-        startJamming();
-        Serial.println("Jamming ON");
-      } else {
-        stopJamming();
-        Serial.println("Jamming OFF");
-      }
+if (toggleState == LOW && lastToggleState == HIGH && millis() - lastToggleMillis > toggleDebounceTime) {
+  lastToggleMillis = millis();
+  
+  if (currentMode == JAMMING) {
+    jammingActive = !jammingActive;
+    if (jammingActive) {
+      startJamming();
+      Serial.println("Jamming ON");
     } else {
-      irActive = !irActive;
-
-      if (irActive) {
-        Serial.println("IR SEND ON");
-        initIrSend();
-      } else {
-        Serial.println("IR SEND OFF");
-      }
-
-      digitalWrite(LED_BUILTIN, HIGH);
-      delay(200);
-      digitalWrite(LED_BUILTIN, LOW);
+      stopJamming();
+      Serial.println("Jamming OFF");
     }
+  } else {
+    irActive = !irActive;
+    if (irActive) {
+      Serial.println("IR SEND ON");
+      initIrSend();
+    } else {
+      Serial.println("IR SEND OFF");
+    }
+    // LED feedback tetap pakai delay() karena tidak kritis
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
   }
-
-  lastToggleState = toggleState;
+}
+lastToggleState = toggleState;
 
   // === LED Indikator berdasarkan mode dan status ===
   if (currentMode == JAMMING && jammingActive) {
@@ -325,6 +324,8 @@ void initIrSend() {
   }
   irIndex = 0;
   irSendInitialized = true;
+    Serial.print("Jumlah kode IR: ");
+  Serial.println(numCodes);
 }
 
 void sendIrStep() {
@@ -370,6 +371,10 @@ void sendIrStep() {
   Serial.println(irIndex);
 
   irIndex++;
+    Serial.print("Kode ke: ");
+  Serial.print(irIndex);
+  Serial.print(" dari ");
+  Serial.println(numCodes);
 }
 
 
