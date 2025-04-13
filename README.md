@@ -17,8 +17,8 @@ Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti re
 ### Daftar Komponen
 - ESP32 Dev Board (saran: ESP32-WROOM-32)
 - 2x Modul NRF24L01+ (transceiver 2.4GHz)
-- LED IR
-- kapasitor 100kΩ 2x
+- LED IR (saran: ky 005)
+- kapasitor 100kΩ atau 10kΩ 2x
 - 1 Tombol tekan (push button)
 - Breadboard atau PCB
 - Sumber daya (bisa dari baterai LiPo atau colok USB)
@@ -189,7 +189,7 @@ Alat ini **cuma buat belajar dan eksperimen aja**. Di beberapa negara, **pakai a
 
 Kalau kamu suka sama proyek ini dan pengen bantu biar makin berkembang, kamu bisa traktir kopi atau dukung lewat link berikut:
 
-- ?? Saweria: [https://saweria.co/HarisSfx]
+- Saweria: [https://saweria.co/HarisSfx]
 
 Bantuan sekecil apapun bakal sangat berarti buat lanjutin pengembangan alat-alat seru kayak gini. Makasih banget!
 
