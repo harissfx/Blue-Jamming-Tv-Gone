@@ -94,7 +94,7 @@ Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti re
 7. Upload kodenya ke ESP32
 
 
-Kalau gak maju ribet tinggal flash disini: https://harissfx.github.io/Blue-Jamming-Tv-Gone/
+Kalau gak mau ribet tinggal flash disini: https://harissfx.github.io/Blue-Jamming-Tv-Gone/
 ---
 
 ## Cara Pakainya
