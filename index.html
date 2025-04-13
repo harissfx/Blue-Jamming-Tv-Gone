@@ -1,36 +1,98 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>ESP32 Bluetooth Jammer</title>
-  <script type="module" src="https://unpkg.com/esp-web-tools@10.0.0/dist/web/install-button.js?module"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ESP32 Bluetooth Jammer - Web Flasher</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@8.0.6/dist/web/install-button.js?module"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background-color: #121212;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c, #121212);
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 1em;
       text-align: center;
-      padding-top: 100px;
+      overflow: hidden;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 2em;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #00e5ff22;
+      max-width: 500px;
+      width: 100%;
+    }
+    .logo {
+      width: 64px;
+      margin-bottom: 1em;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
     h1 {
-      font-size: 2em;
+      font-size: 2rem;
       margin-bottom: 0.5em;
+      color: #00e5ff;
     }
     p {
-      font-size: 1.2em;
-      color: #aaa;
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 1.5em;
     }
-    install-button {
-      margin-top: 30px;
-      --install-button-background-color: #00c853;
-      --install-button-color: white;
-      font-size: 1.1em;
+    esp-web-install-button {
+      --esp-tools-button-color: #0f0f0f;
+      --esp-tools-button-background: #00e5ff;
+      --esp-tools-button-border: 2px solid #00e5ff;
+      --esp-tools-button-hover-background: #00bcd4;
+      --esp-tools-button-hover-color: #000;
+      --esp-tools-border-radius: 10px;
+    }
+    .github-link {
+      margin-top: 1.5em;
+      display: inline-block;
+      color: #00e5ff;
+      text-decoration: none;
+      border: 1px solid #00e5ff;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .github-link:hover {
+      background: #00e5ff;
+      color: #0f0f0f;
+      transform: scale(1.05);
+    }
+    .footer {
+      margin-top: 2em;
+      font-size: 0.85rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
-  <h1>ESP32 Bluetooth Jammer</h1>
-  <p>Flash firmware langsung dari browser</p>
-  <install-button manifest="manifest.json"></install-button>
+  <div class="container">
+    <img src="https://img.icons8.com/fluency/96/flash-on.png" alt="Logo" class="logo"/>
+    <h1>ESP32 Bluetooth Jammer</h1>
+    <p>Flash firmware langsung ke ESP32 kamu, tanpa ribet!</p>
+
+    <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+
+    <a class="github-link" href="https://github.com/harissfx/Blue-Jamming-Tv-Gone" target="_blank">Lihat di GitHub</a>
+    <div class="footer">
+      &copy; 2025 harissfx — Powered by ESP Web Tools
+    </div>
+  </div>
 </body>
 </html>
