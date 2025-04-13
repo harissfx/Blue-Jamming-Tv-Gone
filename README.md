@@ -1,205 +1,211 @@
-# Alat Jamming Wireless & Remote TV IR
+
+---
+
+# 🚀 Alat Jamming Wireless & Remote TV IR
 
 ![Gambar CokTel](src/CokTel.png)
 
-## Sekilas Proyek
+## 🎯 Apa Itu Proyek Ini?
 
-Proyek ini bikin alat pakai ESP32 yang punya 2 fungsi utama:
-1. Bisa ngacak sinyal WiFi dan Bluetooth (jamming) pakai 2 modul RF
-2. Bisa kirim kode remote TV universal via sinyal IR (infrared)
+Simpelnya, ini alat serba bisa pakai ESP32. Ada dua fungsi utama:
 
-Cocok banget buat demonstrasi, belajar tentang sinyal, atau sekadar pengganti remote TV.
+1. **Ngacak sinyal WiFi & Bluetooth** pake 2 modul RF → cocok buat uji coba jamming.
+2. **Ngirim sinyal remote TV universal** via LED infrared → tinggal arahkan ke TV, dan... cling!
+
+Cocok buat belajar, eksperimen, atau gantiin remote TV yang suka ilang. 😄
 
 ---
 
-## Alat & Bahan yang Dibutuhin
+## 🧰 Apa Aja yang Diperlukan?
 
-### Daftar Komponen
-- ESP32 Dev Board (saran: ESP32-WROOM-32)
-- 2x Modul NRF24L01+ (transceiver 2.4GHz)
-- LED IR (saran: ky 005)
-- kapasitor 100kΩ atau 10kΩ 2x
-- 1 Tombol tekan (push button)
+### 🔩 Komponen yang Dipakai
+
+- ESP32 Dev Board (rekomendasi: ESP32-WROOM-32)
+- 2x Modul NRF24L01+ (2.4GHz transceiver)
+- LED IR (misal: KY-005)
+- 2x Resistor 100µF atau 10µF
+- 1x Push Button
 - Breadboard atau PCB
-- Sumber daya (bisa dari baterai LiPo atau colok USB)
+- Power supply (baterai LiPo atau USB)
 - Kabel jumper secukupnya
 
-### Rangkaian Koneksinya
+---
 
-### Koneksi Komponen ke ESP32
+## 🔌 Skema Rangkaian
 
-#### Modul NRF24L01+ #1 (pakai SPI default - VSPI)
-| Pin NRF24L01+ | Pin ESP32 |
-|---------------|-----------|
-| CE            | GPIO16    |
-| CSN           | GPIO15    |
-| SCK           | GPIO14    |
-| MISO          | GPIO12    |
-| MOSI          | GPIO13    |
+### 📌 Koneksi NRF24L01+ ke ESP32
 
-#### Modul NRF24L01+ #2 (pakai SPI alternatif - HSPI)
-| Pin NRF24L01+ | Pin ESP32 |
-|---------------|-----------|
-| CE            | GPIO22    |
-| CSN           | GPIO21    |
-| SCK           | GPIO18    |
-| MISO          | GPIO19    |
-| MOSI          | GPIO23    |
+#### Modul #1 (VSPI - default SPI)
+| NRF24L01+ | ESP32 |
+|-----------|--------|
+| CE        | GPIO16 |
+| CSN       | GPIO15 |
+| SCK       | GPIO14 |
+| MISO      | GPIO12 |
+| MOSI      | GPIO13 |
 
-#### Koneksi Tambahan
-| Komponen         | Pin ESP32 |
-|------------------|-----------|
-| LED IR (ky 005) | GPIO25 |
-| Tombol Toggle     | GPIO33   |
+#### Modul #2 (HSPI - alternatif SPI)
+| NRF24L01+ | ESP32 |
+|-----------|--------|
+| CE        | GPIO22 |
+| CSN       | GPIO21 |
+| SCK       | GPIO18 |
+| MISO      | GPIO19 |
+| MOSI      | GPIO23 |
 
+### Komponen Lain
+| Komponen       | ESP32     |
+|----------------|-----------|
+| LED IR         | GPIO25    |
+| Tombol TOGGLE  | GPIO33    |
 
+📸 **Skema lengkap:**
 
-![Gambar CokTel](Koneksi/wiring_esp32.jpg)
+![Wiring](Koneksi/wiring_esp32.jpg)
 
 ---
 
-## Persiapan Software
+## 💻 Persiapan di Sisi Software
 
-### Library yang Dibutuhin
-- RF24
-- SPI
-- ezButton
-- IRremote
-- tvbgone_codes.h (udah disertakan di proyek)
+### 📚 Library Wajib
 
-### Cara Setup
+- `RF24`
+- `SPI`
+- `ezButton`
+- `IRremote`
+- `tvbgone_codes.h` (udah include di repo ini)
 
-1. Download Arduino IDE dari [arduino.cc](https://www.arduino.cc/en/software)
-2. Tambahkan dukungan board ESP32:
-   - Buka Arduino IDE
-   - Masuk ke **File > Preferences**
-   - Tambahkan ini ke *Additional Board URLs*:  
+### 🔧 Langkah Instalasi
+
+1. Download Arduino IDE → [arduino.cc](https://www.arduino.cc/en/software)
+2. Tambah dukungan board ESP32:
+   - Buka **File > Preferences**
+   - Tambahkan URL ini di bagian *Additional Board URLs*:  
      ```
      https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
      ```
-   - Buka **Tools > Board > Boards Manager**, cari **ESP32**, terus install
+   - Buka **Tools > Board > Boards Manager** → cari **ESP32** → install.
 
-3. Install library:
-   - Masuk ke **Sketch > Include Library > Manage Libraries**
-   - Cari dan install: **RF24**, **ezButton**, **IRremote**
+3. Install library lewat Library Manager:
+   - `RF24`, `ezButton`, `IRremote`
 
-4. Ambil file `tvbgone_codes.h` dari repositori
+4. Ambil file `tvbgone_codes.h` dari folder proyek ini.
 
-5. Copy-paste kode utamanya ke Arduino IDE
+5. Copy-paste kode utamanya ke Arduino IDE.
 
-6. Pilih board & port yang sesuai:
-   - Board: **ESP32 Dev Module**
-   - Port: (pilih port tempat ESP32 kamu terhubung)
+6. Pilih board & port:
+   - Board: `ESP32 Dev Module`
+   - Port: pilih yang sesuai
 
-7. Upload kodenya ke ESP32
+7. Upload, dan selesai!
 
-
-Kalau gak mau ribet tinggal flash disini: https://harissfx.github.io/Blue-Jamming-Tv-Gone/
----
-
-## Cara Pakainya
-
-### Tombol & Fungsi
-
-- **Tombol BOOT (GPIO0)**: Buat ganti mode antara Jamming dan IR Send
-- **Tombol TOGGLE (GPIO33)**: Buat mulai/berhenti fungsi yang lagi aktif
-- **LED Status**: Tanda-tanda mode
-  - Kelap-kelip lambat: Standby
-  - Nyala terus: Lagi jamming
-  - Kelap-kelip cepat: Lagi kirim IR
+🔁 **Alternatif gampang**: langsung flash via web di sini:  
+👉 [https://harissfx.github.io/Blue-Jamming-Tv-Gone/](https://harissfx.github.io/Blue-Jamming-Tv-Gone/)
 
 ---
 
-### Mode Pengoperasian
+## 🕹️ Cara Pakai
 
-#### Mode Jamming
-Di mode ini:
-- 2 modul NRF24L01+ bakal kirim sinyal acak di frekuensi 2.4GHz
-- Sinyalnya lompat-lompat terus (frequency hopping)
-- Bisa ganggu WiFi dan Bluetooth di sekitar
+### 🎛️ Tombol & Indikator
+
+- **BOOT (GPIO0)** → Ganti mode: Jamming ↔ IR Send
+- **TOGGLE (GPIO33)** → Start/Stop fungsi aktif
+- **LED Status**:
+  - 🔵 Kedip lambat: Standby
+  - 🔴 Nyala terus: Lagi Jamming
+  - 🟡 Kedip cepat: Lagi kirim IR
+
+---
+
+### 🔄 Mode Operasi
+
+#### 1. 🔊 Mode Jamming
+
+- Kirim sinyal "acak" di 2.4GHz lewat 2 modul RF
+- Gunain teknik frequency hopping
+- Cocok buat simulasi gangguan WiFi & Bluetooth
 
 **Cara pakai:**
-1. Nyalain alat (default-nya langsung masuk Jamming Mode)
-2. Tekan tombol TOGGLE buat mulai jamming
-3. Tekan TOGGLE lagi buat berhenti
+- Nyalain alat (default-nya langsung masuk mode ini)
+- Tekan TOGGLE buat mulai/berhenti
 
-#### Mode IR Remote
-Di mode ini:
-- Alat bakal kirim sinyal power on/off untuk hampir semua merek TV
-- Bisa dipakai kayak remote universal
+#### 2. 📺 Mode IR Remote
+
+- Kirim sinyal power ke berbagai merek TV (universal remote)
+- Mirip fungsi TV-B-Gone
 
 **Cara pakai:**
-1. Nyalain alat
-2. Tekan tombol BOOT buat pindah ke mode IR
-3. Arahkan LED IR ke TV atau alat elektronik yang mau dikontrol
-4. Tekan TOGGLE buat mulai kirim sinyal
-5. Tekan TOGGLE lagi buat berhenti
+- Tekan BOOT buat pindah ke mode IR
+- Arahkan LED IR ke TV
+- Tekan TOGGLE buat mulai kirim sinyal
+- Tekan TOGGLE lagi buat berhenti
 
 ---
 
-## Info Teknis
+## ⚙️ Info Teknis
 
-### Tentang Jamming
-- Pakai 2 modul RF sekaligus supaya jangkauan lebih luas
-- Frekuensinya lompat-lompat biar lebih efektif
-- ESP32 pakai 2 SPI channel yang berbeda (HSPI & VSPI)
+### 💥 Jamming Details
+- Gunain 2 modul NRF24L01+ sekaligus
+- Dipisah pakai 2 channel SPI (HSPI & VSPI)
+- Efektif buat uji coba teknik jamming low-level
 
-### Tentang IR
-- Kode IR buat banyak TV udah disiapin
-- Support TV Amerika dan Eropa
-- Programnya nggak pake delay blocking, jadi tetap responsif
-
----
-
-## Peringatan!
-
-Alat ini **cuma buat belajar dan eksperimen aja**. Di beberapa negara, **pakai alat jamming itu dilarang atau diatur ketat**. Jadi pastikan kamu ngerti aturan di tempat kamu tinggal sebelum pakai. Jangan dipakai buat ganggu perangkat penting atau komunikasi orang lain, ya.
+### 🔦 IR Remote
+- Kode IR udah disiapin buat banyak merk TV
+- Tetap responsif karena nggak pake `delay()` blocking
 
 ---
 
-## Troubleshooting / Masalah Umum
+## ⚠️ Penting: Peringatan!
 
-1. **Jamming nggak ngaruh?**
-   - Cek kabel ke NRF24L01+
-   - Pastikan modul dapet power yang cukup
-   - Coba deketin ke target
+> **Alat ini hanya untuk edukasi & eksperimen.**
+
+Di beberapa negara, **jamming sinyal itu ilegal atau diawasi ketat**. Harap gunakan secara bertanggung jawab. Jangan dipakai buat ganggu komunikasi penting atau perangkat orang lain. 🙏
+
+---
+
+## 🛠️ Masalah Umum & Solusinya
+
+1. **Jamming nggak terasa efeknya?**
+   - Cek kabel NRF24L01+
+   - Pastikan power cukup (pakai kapasitor kalau perlu)
+   - Coba dekatin ke target
 
 2. **IR nggak ngaruh ke TV?**
-   - Cek arah LED IR, pastikan nyorot ke depan
-   - Harus ada line of sight ke TV
-   - Coba dari jarak atau sudut yang beda
+   - Arahkan LED langsung ke sensor TV
+   - Pastikan gak ada penghalang
+   - Coba ubah sudut & jarak
 
-3. **Alat nggak respon?**
-   - Cek sumber daya
-   - Pastikan tombol-tombol nyambung benar
+3. **ESP32 nggak respon?**
+   - Cek koneksi & tombol
    - Coba reset dan upload ulang
+   - Periksa pasokan daya
 
 ---
 
-## Rencana Pengembangan ke Depan
+## 📈 Rencana Pengembangan
 
-- Bikin kontrol dari HP via Bluetooth
-- Tambahin fitur jamming frekuensi tertentu aja
-- Tambah layar buat info mode dan status
-- Bikin casing 3D print-nya
-
----
-
-## Dukung Proyek Ini
-
-Kalau kamu suka sama proyek ini dan pengen bantu biar makin berkembang, kamu bisa traktir kopi atau dukung lewat link berikut:
-
-- Saweria: [https://saweria.co/HarisSfx]
-
-Bantuan sekecil apapun bakal sangat berarti buat lanjutin pengembangan alat-alat seru kayak gini. Makasih banget!
+- Kontrol lewat HP (Bluetooth)
+- Pilihan jamming frekuensi tertentu
+- Tambahin layar OLED/TFT buat info status
+- Desain casing 3D print
 
 ---
 
-## Kredit
+## ☕ Dukung Proyek Ini
+
+Kalau kamu suka dengan alat ini, bisa bantu kembangin proyek selanjutnya lewat:
+
+👉 **Saweria:** [https://saweria.co/HarisSfx](https://saweria.co/HarisSfx)
+
+Bantu secuil pun sangat berarti buat terus bikin alat-alat seru lainnya. Makasih banyak, ya! ❤️
+
+---
+
+## 👤 Kredit
 
 **Dibuat oleh:** Haris SFX  
 **Lisensi:** MIT License  
 
+> *Semua konten dibuat untuk tujuan edukasi. Penggunaan di luar tanggung jawab pembuat.*
 
-> *Proyek ini dibuat buat keperluan edukasi. Penulis nggak bertanggung jawab kalau ada yang nyalahgunain alat ini.*
-
+---
