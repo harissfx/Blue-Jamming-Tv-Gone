@@ -89,15 +89,13 @@ Cocok buat belajar, eksperimen, atau gantiin remote TV yang suka ilang. 😄
 3. Install library lewat Library Manager:
    - `RF24`, `ezButton`, `IRremote`
 
-4. Ambil file `tvbgone_codes.h` dari folder proyek ini.
+4. Buka project klik 2 kali file `jamming_tv_gone.ino` dari folder proyek ini.
 
-5. Copy-paste kode utamanya ke Arduino IDE.
-
-6. Pilih board & port:
+5. Pilih board & port:
    - Board: `ESP32 Dev Module`
    - Port: pilih yang sesuai
 
-7. Upload, dan selesai!
+6. Upload, dan selesai!
 
 🔁 **Alternatif gampang**: langsung flash via web di sini:  
 👉 [https://harissfx.github.io/Blue-Jamming-Tv-Gone/](https://harissfx.github.io/Blue-Jamming-Tv-Gone/)
