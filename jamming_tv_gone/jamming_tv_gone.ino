@@ -55,7 +55,7 @@
 #define TOGGLE_PIN 33  
 #define BOOT_PIN 0     
 const uint16_t kIrLed = 25; 
-
+#define DRONE_CH_LEN (sizeof(drone_channels)/sizeof(drone_channels[0]))
 // === RADIO CONFIGURATION ===
 SPIClass *sp = nullptr;
 SPIClass *hp = nullptr;
@@ -79,8 +79,11 @@ unsigned long previousMillis = 0;
 const long blinkInterval = 500;
 bool ledState = LOW;
 unsigned long lastToggleMillis = 0;
-const long toggleDebounceTime = 50;
-
+const long toggleDebounceTime = 100;
+// === DEKLARASI TOMBOL ===
+volatile bool buttonPressed = false;  // Flag untuk interrupt
+unsigned long lastDebounceTime = 0;   // Waktu debounce
+const unsigned long debounceDelay = 200; // Debounce 200ms
 // === IR CONFIGURATION ===
 IRsend irsend(kIrLed);
 bool irActive = false;
@@ -131,6 +134,14 @@ void setup() {
   initSP();
 
   stopJamming();
+  // === KONFIGURASI INTERRUPT TOMBOL ===
+pinMode(TOGGLE_PIN, INPUT_PULLUP);
+attachInterrupt(digitalPinToInterrupt(TOGGLE_PIN), []() {
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    buttonPressed = true;
+    lastDebounceTime = millis();
+  }
+}, FALLING);
 }
 
 // === MAIN LOOP ===
@@ -161,29 +172,32 @@ void loop() {
 
 if (toggleState == LOW && lastToggleState == HIGH && millis() - lastToggleMillis > toggleDebounceTime) {
   lastToggleMillis = millis();
+// === PENANGANAN TOMBOL ===
+if (buttonPressed) {
+  buttonPressed = false;
   
   if (currentMode == JAMMING) {
     jammingActive = !jammingActive;
     if (jammingActive) {
       startJamming();
-      Serial.println("Jamming ON");
+      Serial.println("Jamming ON - Tekan lagi untuk STOP");
     } else {
       stopJamming();
       Serial.println("Jamming OFF");
     }
-  } else {
+  } else { 
     irActive = !irActive;
     if (irActive) {
-      Serial.println("IR SEND ON");
+      Serial.println("IR SEND dimulai");
       initIrSend();
     } else {
-      Serial.println("IR SEND OFF");
+      Serial.println("IR SEND dihentikan");
     }
-    // LED feedback tetap pakai delay() karena tidak kritis
     digitalWrite(LED_BUILTIN, HIGH);
     delay(200);
     digitalWrite(LED_BUILTIN, LOW);
   }
+}
 }
 lastToggleState = toggleState;
 
@@ -273,30 +287,52 @@ void initHP() {
 
 // === JAMMING CONTROL FUNCTIONS ===
 void two() {
-  if (flagv == 0) {  
-    ch1 += 4;
-  } else {  
-    ch1 -= 4;
+  static uint8_t mode = 0;
+  static uint8_t wifi_channel = 1;
+  const uint8_t drone_channels[] = {36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161};
+
+  if (mode == 0) {
+    // ===== MODE 1: PRIORITIZE WIFI CHANNELS =====
+    wifi_channel = (wifi_channel % 3) + 1; // Cycle through 1, 2, 3
+    switch(wifi_channel) {
+      case 1: ch = 1; break;   // WiFi Ch1
+      case 2: ch = 6; break;   // WiFi Ch6
+      case 3: ch = 11; break;  // WiFi Ch11
+    }
+
+    ch1 = ch + random(-2, 3);
+    ch1 = constrain(ch1, 1, 13);
+
+    if (random(0, 100) > 80) { 
+      ch1 = random(0, 79);
+    }
+  } 
+  else {
+    // ===== MODE 2: FULL SPECTRUM + DRONE TARGETING =====
+    ch = (ch + 5) % 79;
+    
+    if (random(0, 100) > 50) {
+      ch1 = drone_channels[random(0, DRONE_CH_LEN)];
+    } else {
+      ch1 = random(0, 79);
+    }
   }
-  if (flag == 0) {  
-    ch += 2;
-  } else {  
-    ch -= 2;
+
+  static uint8_t counter = 0;
+  if (++counter >= 20) {
+    mode = !mode;
+    counter = 0;
   }
-  if ((ch1 > 79) && (flagv == 0)) {
-    flagv = 1;                             
-  } else if ((ch1 < 2) && (flagv == 1)) {  
-    flagv = 0;                             
-  }
-  if ((ch > 79) && (flag == 0)) {
-    flag = 1;                            
-  } else if ((ch < 2) && (flag == 1)) {  
-    flag = 0;                            
-  }
+
+  ch = constrain(ch, 0, 79);
+  ch1 = constrain(ch1, 0, 79);
   radio.setChannel(ch);
   radio1.setChannel(ch1);
-}
 
+  if (random(0, 100) > 90) {
+    delayMicroseconds(random(100, 500));
+  }
+}
 void stopJamming() {
   radio.stopConstCarrier();
   radio1.stopConstCarrier();
