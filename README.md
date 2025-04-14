@@ -85,7 +85,7 @@ Cocok buat belajar, eksperimen, atau gantiin remote TV yang suka ilang. 😄
      https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
      ```
    - Buka **Tools > Board > Boards Manager** → cari **ESP32** → install.
-
+   - **Note**:  pilih yang versi 2.0.7 atau versi sebelumnya misal 1.0.6
 3. Install library lewat Library Manager:
    - `RF24`, `ezButton`, `IRremote`
 
